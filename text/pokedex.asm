@@ -298,6 +298,16 @@ _TangelaDexEntry::
 	next "shake as it walks"
 	dex
 
+_GhostDexEntry::
+	text "This isn't"
+	next "really a"
+	next "#MON..."
+	
+	page "Better tell"
+	next "Professor Oak"
+	next "to fix this"
+	dex
+
 _GrowlitheDexEntry::
 	text "Very protective"
 	next "of its territory."
@@ -1507,4 +1517,3 @@ _VictreebelDexEntry::
 	next "has ever returned"
 	next "from there"
 	dex
-

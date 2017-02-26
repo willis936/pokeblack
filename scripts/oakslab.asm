@@ -430,7 +430,7 @@ OaksLabScript12: ; 1ce03 (7:4e03)
 	call SetSpriteFacingDirectionAndDelay
 	predef HealParty
 	SetEvent EVENT_BATTLED_RIVAL_IN_OAKS_LAB
-
+	
 	ld a, $d
 	ld [wOaksLabCurScript], a
 	ret
@@ -459,6 +459,7 @@ OaksLabScript13: ; 1ce32 (7:4e32)
 
 	ld a, $e
 	ld [wOaksLabCurScript], a
+	
 	ret
 
 .RivalExitMovement
@@ -480,6 +481,27 @@ OaksLabScript14: ; 1ce6d (7:4e6d)
 	xor a
 	ld [wJoyIgnore], a
 	call PlayDefaultMusic ; reset to map music
+	
+	; now give ghost in black version
+	;ld [wMissableObjectIndex], a
+	;predef HideObject
+	;ld a, $1
+	;ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+	;ld hl, OaksLabReceivedGhostText
+	;call PrintText
+	;ld a, 0
+	;ld [wMonDataLocation], a
+	;ld a, 1
+	;ld [wCurEnemyLVL], a
+	;ld a, POK_GHOST
+	;ld [wcf91], a
+	;ld [wd11e], a
+	;ld [wPlayerStarter], a
+	;call GetMonName
+	;ld a, [wSpriteIndex]
+	;cp $2
+	;call AddPartyMon
+	
 	ld a, $12
 	ld [wOaksLabCurScript], a
 	jr .done
@@ -922,13 +944,14 @@ OaksLabMonChoiceMenu: ; 1d1b3 (7:51b3)
 	call PrintText
 	ld hl, OaksLabReceivedMonText
 	call PrintText
-	xor a ; PLAYER_PARTY_DATA
+	xor a ; PLAYER_PARTY_DATA, forces a = 0 so starter mon is asked to be named
 	ld [wMonDataLocation], a
 	ld a, 5
 	ld [wCurEnemyLVL], a
 	ld a, [wcf91]
 	ld [wd11e], a
 	call AddPartyMon
+	
 	ld hl, wd72e
 	set 3, [hl]
 	ld a, $fc
@@ -1236,3 +1259,7 @@ OaksLabText10: ; 1d3fb (7:53fb)
 OaksLabText_1d405: ; 1d405 (7:5405)
 	TX_FAR _OaksLabText_1d405
 	db "@"
+
+;OaksLabReceivedGhostText: ; dunno the addresses.  black version
+	;TX_FAR _OaksLabReceivedGhostText
+	;db $11, "@"

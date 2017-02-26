@@ -24,15 +24,19 @@ OneHitKOEffect_: ; 33f57 (c:7f57)
 	ld a, [hl]
 	sbc b
 	jr c, .userIsSlower
+	jr .finishHim
+.userIsSlower
+; keep damage at 0 and set move missed flag if target's current speed is higher instead
+	call IsGhostOut
+	jr z, .finishHim ; black version, make sure curse hits every time
+	ld a, $1
+	ld [wMoveMissed], a
+	ret
+.finishHim
 	ld hl, wDamage
 	ld a, $ff
 	ld [hli], a
 	ld [hl], a
 	ld a, $2
 	ld [wCriticalHitOrOHKO], a
-	ret
-.userIsSlower
-; keep damage at 0 and set move missed flag if target's current speed is higher instead
-	ld a, $1
-	ld [wMoveMissed], a
 	ret

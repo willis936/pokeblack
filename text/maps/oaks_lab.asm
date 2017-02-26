@@ -476,3 +476,9 @@ _OaksLabText_4424c::
 	cont "Congratulations!"
 	done
 
+;_OaksLabReceivedGhostText::
+	;text "Looks like you"
+	;line "made a new"
+	;cont "friend!"
+	;done
+

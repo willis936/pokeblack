@@ -95,6 +95,8 @@ TitleScreenAnimateBallIfStarterOut: ; 372ac (d:72ac)
 	cp STARTER2
 	jr z, .ok
 	cp STARTER3
+	jr z, .ok
+	;cp STARTER4
 	ret nz
 .ok
 	ld e, 1 ; animate titleball

@@ -127,6 +127,28 @@ PalletTownScript4: ; 18f4b (6:4f4b)
 	; trigger the next script
 	ld a,5
 	ld [wPalletTownCurScript],a
+	; give ghost, black version
+	;ld hl, OaksLabReceivedGhostText
+	;call PrintText
+	ld a, 16
+	ld [wMonDataLocation], a
+	ld a, 1
+	ld [wCurEnemyLVL], a
+	ld a, POK_GHOST
+	ld [wcf91], a
+	call AddPartyMon
+	ld hl, wPartyMonNicks + 11  ; set name to "GHOST"
+	ld a, "G"
+	ld [hli], a
+	ld a, "H"
+	ld [hli], a
+	ld a, "O"
+	ld [hli], a
+	ld a, "S"
+	ld [hli], a
+	ld a, "T"
+	ld [hli], a
+	ld a, [wcf91]
 	ret
 
 PalletTownScript5: ; 18f56 (6:4f56)
@@ -134,6 +156,7 @@ PalletTownScript5: ; 18f56 (6:4f56)
 	jr nz,.next
 	CheckBothEventsSet EVENT_GOT_TOWN_MAP, EVENT_ENTERED_BLUES_HOUSE, 1
 	jr nz,.next
+	
 	SetEvent EVENT_DAISY_WALKING
 	ld a,HS_DAISY_SITTING
 	ld [wMissableObjectIndex],a

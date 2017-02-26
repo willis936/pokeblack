@@ -597,7 +597,7 @@ GetMonHeader:: ; 1537 (0:1537)
 	ld [hl],e ; write front sprite pointer
 	inc hl
 	ld [hl],d
-	jr .done
+	;jr .done
 .mew
 	ld hl,MewBaseStats
 	ld de,wMonHeader
@@ -736,6 +736,10 @@ UncompressMonSprite:: ; 1627 (0:1627)
 	ld b,a
 	cp MEW
 	ld a,BANK(MewPicFront)
+	jr z,.GotBank
+	ld a,b
+	cp POK_GHOST
+	ld a,BANK(GhostPicFront)
 	jr z,.GotBank
 	ld a,b
 	cp FOSSIL_KABUTOPS

@@ -70,7 +70,7 @@ SetPal_StatusScreen: ; 71e4f (1c:5e4f)
 	ld bc, $10
 	call CopyData
 	ld a, [wcf91]
-	cp VICTREEBEL + 1
+	cp POK_GHOST + 1
 	jr c, .pokemon
 	ld a, $1 ; not pokemon
 .pokemon

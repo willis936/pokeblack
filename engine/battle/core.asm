@@ -3149,9 +3149,12 @@ ExecutePlayerMove: ; 3d65e (f:565e)
 	jp nz, ExecutePlayerMoveDone
 	call PrintGhostText
 	jp z, ExecutePlayerMoveDone
+	call PrintPOKGhostText
+	jp nz, ExecutePlayerMoveDone
 	call CheckPlayerStatusConditions
 	jr nz, .playerHasNoSpecialCondition
 	jp [hl]
+
 .playerHasNoSpecialCondition
 	call GetCurrentMove
 	ld hl, wPlayerBattleStatus1
@@ -3383,6 +3386,37 @@ IsGhostBattle: ; 3d83a (f:583a)
 	ld a,1
 	and a
 	ret
+
+PrintPOKGhostText: ; 3d811 (f:5811)
+	call IsGhostOut
+	ret nz
+	ld a,[H_WHOSETURN]
+	and a ; if this is zero then it is the player's turn
+	jr nz,.GhostOwned
+	xor a
+	ret
+.GhostOwned ; ghost’s opponent turn
+	ld hl,ScaredOppText
+	call PrintText
+	xor a
+	ret
+
+IsGhostOut: ; 3d83a (f:583a)
+	ld a,[wIsInBattle]
+	dec a
+	ret nz
+	ld a,[wBattleMon]
+	cp a,POK_GHOST
+	jr c,.next
+	ret z
+.next
+	ld a,1
+	and a
+	ret
+
+ScaredOppText: ; 3d830 (f:5830)
+	TX_FAR _ScaredOppText
+	db "@"
 
 ; checks for various status conditions affecting the player mon
 ; stores whether the mon cannot use a move this turn in Z flag
@@ -5673,6 +5707,8 @@ ExecuteEnemyMove: ; 3e6bc (f:66bc)
 	jp z, ExecuteEnemyMoveDone
 	call PrintGhostText
 	jp z, ExecuteEnemyMoveDone
+	call PrintPOKGhostText
+	jp z, ExecuteEnemyMoveDone
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr nz, .executeEnemyMove
@@ -7174,13 +7210,13 @@ MoveEffectPointerTable: ; 3f150 (f:7150)
 	 dw SwitchAndTeleportEffect   ; SWITCH_AND_TELEPORT_EFFECT
 	 dw TwoToFiveAttacksEffect    ; TWO_TO_FIVE_ATTACKS_EFFECT
 	 dw TwoToFiveAttacksEffect    ; unused effect
-	 dw FlinchSideEffect           ; FLINCH_SIDE_EFFECT1
+	 dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT1
 	 dw SleepEffect               ; SLEEP_EFFECT
 	 dw PoisonEffect              ; POISON_SIDE_EFFECT2
 	 dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT2
 	 dw FreezeBurnParalyzeEffect  ; unused effect
 	 dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT2
-	 dw FlinchSideEffect           ; FLINCH_SIDE_EFFECT2
+	 dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT2
 	 dw OneHitKOEffect            ; OHKO_EFFECT
 	 dw ChargeEffect              ; CHARGE_EFFECT
 	 dw $0000                     ; SUPER_FANG_EFFECT

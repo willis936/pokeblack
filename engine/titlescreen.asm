@@ -118,14 +118,15 @@ DisplayTitleScreen: ; 42dd (1:42dd)
 	call LoadScreenTilesFromBuffer2
 	call EnableLCD
 IF DEF(_RED)
-	ld a,CHARMANDER ; which Pokemon to show first on the title screen
+	ld a,POK_GHOST ; which Pokemon to show first on the title screen
 ENDC
 IF DEF(_BLUE)
 	ld a,SQUIRTLE ; which Pokemon to show first on the title screen
 ENDC
 
+	; Don't load a poke sprite in Black Version.  Uncomment to test ghost pic.
 	ld [wTitleMonSpecies], a
-	call LoadTitleMonSprite
+	;call LoadTitleMonSprite
 	ld a, (vBGMap0 + $300) / $100
 	call TitleScreenCopyTileMapToVRAM
 	call SaveScreenTilesToBuffer1
@@ -222,19 +223,21 @@ ENDC
 	ld c, 200
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
-	call TitleScreenScrollInMon
-	ld c, 1
+	; Pokemon scrolling commented out for black version
+	;call TitleScreenScrollInMon
+	;ld c, 1
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
 	callba TitleScreenAnimateBallIfStarterOut
-	call TitleScreenPickNewMon
+	;call TitleScreenPickNewMon
 	jr .awaitUserInterruptionLoop
 
 .finishedWaiting
 	ld a, [wTitleMonSpecies]
-	call PlayCry
-	call WaitForSoundToFinish
-	call GBPalWhiteOutWithDelay3
+	; disable cry in Black Version.  Re enable to test ghost pokemon cry.
+	;call PlayCry
+	;call WaitForSoundToFinish
+	;call GBPalWhiteOutWithDelay3
 	call ClearSprites
 	xor a
 	ld [hWY], a
@@ -261,29 +264,30 @@ TitleScreenPickNewMon: ; 4496 (1:4496)
 	ld a, vBGMap0 / $100
 	call TitleScreenCopyTileMapToVRAM
 
-.loop
+; No pokemon shown (or looped) in Black Version
+;.loop
 ; Keep looping until a mon different from the current one is picked.
-	call Random
-	and $f
-	ld c, a
-	ld b, 0
-	ld hl, TitleMons
-	add hl, bc
-	ld a, [hl]
-	ld hl, wTitleMonSpecies
-
+;	call Random
+;	and $f
+;	ld c, a
+;	ld b, 0
+;	ld hl, TitleMons
+;	add hl, bc
+;	ld a, [hl]
+;	ld hl, wTitleMonSpecies
+;
 ; Can't be the same as before.
-	cp [hl]
-	jr z, .loop
-
-	ld [hl], a
-	call LoadTitleMonSprite
-
-	ld a, $90
-	ld [hWY], a
-	ld d, 1 ; scroll out
-	callba TitleScroll
-	ret
+;	cp [hl]
+;	jr z, .loop
+;
+;	ld [hl], a
+;	call LoadTitleMonSprite
+;
+;	ld a, $90
+;	ld [hWY], a
+;	ld d, 1 ; scroll out
+;	callba TitleScroll
+;	ret
 
 TitleScreenScrollInMon: ; 44c1 (1:44c1)
 	ld d, 0 ; scroll in
@@ -382,18 +386,20 @@ CopyrightTextString: ; 4556 (1:4556)
 	next $60,$61,$62,$61,$63,$61,$64,$7F,$73,$74,$75,$76,$77,$78,$79,$7A,$7B ; ©'95.'96.'98 GAME FREAK inc.
 	db   "@"
 
-INCLUDE "data/title_mons.asm"
+;INCLUDE "data/title_mons.asm"
 
 ; prints version text (red, blue)
 PrintGameVersionOnTitleScreen: ; 4598 (1:4598)
-	coord hl, 7, 8
+	;coord hl, 7, 8
+	coord hl, 6, 8 ; shift to the left for centered "Black Version"
 	ld de, VersionOnTitleScreenText
 	jp PlaceString
 
 ; these point to special tiles specifically loaded for that purpose and are not usual text
-VersionOnTitleScreenText: ; 45a1 (1:45a1)
+VersionOnTitleScreenText: ; 45a1 (1:45a1), use tlp11 (tile layer pro) 1BPP mode, line 0x68030
 IF DEF(_RED)
-	db $60,$61,$7F,$65,$66,$67,$68,$69,"@" ; "Red Version"
+	; db $60,$61,$7F,$65,$66,$67,$68,$69,"@" ; "Red Version"
+	db $62,$63,$64,$7F,$65,$66,$67,$68,$69,"@" ; "Black Version"
 ENDC
 IF DEF(_BLUE)
 	db $61,$62,$63,$64,$65,$66,$67,$68,"@" ; "Blue Version"
