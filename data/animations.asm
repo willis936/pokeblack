@@ -1,14 +1,14 @@
 AttackAnimationPointers: ; 7a07d (1e:607d)
-	dw PoundAnim
-	dw KarateChopAnim
-	dw DoubleSlapAnim
-	dw CometPunchAnim
-	dw MegaPunchAnim
-	dw PayDayAnim
-	dw FirePunchAnim
-	dw IcePunchAnim
-	dw ThunderPunchAnim
-	dw ScratchAnim
+	dw PoundAnim			; POUND
+	dw KarateChopAnim		; KARATE CHOP
+	dw DoubleSlapAnim		; DOUBLE SLAP
+	dw CometPunchAnim		; COMET PUNCH
+	dw MegaPunchAnim		; MEGA PUNCH
+	dw PayDayAnim			; PAY DAY
+	dw FirePunchAnim		; FIRE PUNCH
+	dw IcePunchAnim			; ICE PUNCH
+	dw ThunderPunchAnim		; THUNDER PUNCH
+	dw ScratchAnim			; SCRATCH
 	dw VicegripAnim
 	dw GuillotineAnim
 	dw RazorWindAnim
@@ -163,7 +163,8 @@ AttackAnimationPointers: ; 7a07d (1e:607d)
 	dw SuperFangAnim
 	dw SlashAnim
 	dw SubstituteAnim
-	dw StruggleAnim
+	dw FlashAnim			; CURSE
+	dw StruggleAnim			; STRUGGLE
 	dw ShowPicAnim
 	dw EnemyFlashAnim
 	dw PlayerFlashAnim

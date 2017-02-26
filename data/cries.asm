@@ -30,7 +30,7 @@ CryData: ; 39446 (e:5446)
 	db $13, $00, $80; Blastoise
 	db $14, $00, $80; Pinsir
 	db $12, $00, $80; Tangela
-	db $00, $00, $00; MissingNo.
+	db $1C, $20, $A0; Ghost
 	db $00, $00, $00; MissingNo.
 	db $1F, $20, $40; Growlithe
 	db $17, $FF, $C0; Onix
@@ -183,7 +183,7 @@ CryData: ; 39446 (e:5446)
 	db $1D, $00, $80; MissingNo.
 	db $00, $00, $00; MissingNo.
 	db $00, $00, $00; MissingNo.
-	db $00, $00, $00; MissingNo.
+	db $00, $00, $00; MissingNo. ; db $1C, $20, $A0; Ghost
 	db $08, $DD, $01; Oddish
 	db $08, $AA, $40; Gloom
 	db $23, $22, $FF; Vileplume

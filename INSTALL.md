@@ -1,3 +1,5 @@
+Note that the only version modded is red.
+
 # Linux
 
 	sudo apt-get install make gcc bison git python

@@ -10,6 +10,7 @@ PICS_2 EQU $A
 PICS_3 EQU $B
 PICS_4 EQU $C
 PICS_5 EQU $D
+PICS_6 EQU $2D
 
 
 INCLUDE "home.asm"
@@ -69,7 +70,7 @@ ResetStatusAndHalveMoneyOnBlackout::
 
 MewPicFront:: INCBIN "pic/bmon/mew.pic"
 MewPicBack::  INCBIN "pic/monback/mewb.pic"
-INCLUDE "data/baseStats/mew.asm"
+;INCLUDE "data/baseStats/mew.asm"
 
 INCLUDE "engine/battle/safari_zone.asm"
 
@@ -773,6 +774,7 @@ SetIshiharaTeam: ; 64ca (1:64ca)
 IshiharaTeam: ; 64df (1:64df)
 	db EXEGGUTOR,90
 	db MEW,20
+	db MEWTWO,20
 	db JOLTEON,56
 	db DUGTRIO,56
 	db ARTICUNO,57
@@ -5475,7 +5477,7 @@ WartortlePicBack::     INCBIN "pic/monback/wartortleb.pic"
 CharizardPicFront::    INCBIN "pic/bmon/charizard.pic"
 CharizardPicBack::     INCBIN "pic/monback/charizardb.pic"
 FossilAerodactylPic::  INCBIN "pic/bmon/fossilaerodactyl.pic"
-GhostPic::             INCBIN "pic/other/ghost.pic"
+GhostPic::        	   INCBIN "pic/other/ghost.pic"
 OddishPicFront::       INCBIN "pic/bmon/oddish.pic"
 OddishPicBack::        INCBIN "pic/monback/oddishb.pic"
 GloomPicFront::        INCBIN "pic/bmon/gloom.pic"
@@ -6499,7 +6501,7 @@ INCLUDE "engine/battle/decrement_pp.asm"
 
 Version_GFX:
 IF DEF(_RED)
-	INCBIN "gfx/red/redgreenversion.1bpp" ; 10 tiles
+	INCBIN "gfx/red/redblackversion.1bpp" ; 10 tiles
 ENDC
 IF DEF(_BLUE)
 	INCBIN "gfx/blue/blueversion.1bpp" ; 8 tiles
@@ -6714,6 +6716,11 @@ INCLUDE "engine/evolution.asm"
 INCLUDE "engine/overworld/elevator.asm"
 
 INCLUDE "engine/items/tm_prices.asm"
+
+SECTION "Pics 6", ROMX, BANK[PICS_6]
+
+GhostPicFront::    INCBIN "pic/other/ghost.pic"
+GhostPicBack::     INCBIN "pic/monback/gastlyb.pic"
 
 IF DEF(_OPTION_BEACH_HOUSE)
 SECTION "bank3C",ROMX[$4314],BANK[$3C]

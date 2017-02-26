@@ -29,7 +29,7 @@ EvosMovesPointerTable: ; 3b05c (e:705c)
 	dw Mon009_EvosMoves
 	dw Mon127_EvosMoves
 	dw Mon114_EvosMoves
-	dw Mon152_EvosMoves	;MissingNo
+	dw Mon152_EvosMoves ;POK_GHOST
 	dw Mon153_EvosMoves	;MissingNo
 	dw Mon058_EvosMoves
 	dw Mon095_EvosMoves
@@ -189,6 +189,7 @@ EvosMovesPointerTable: ; 3b05c (e:705c)
 	dw Mon069_EvosMoves
 	dw Mon070_EvosMoves
 	dw Mon071_EvosMoves
+	
 
 Mon112_EvosMoves: ; 3b1d8 (e:71d8)
 ;RHYDON
@@ -565,12 +566,19 @@ Mon114_EvosMoves: ; 3b362 (e:7362)
 	db 49,GROWTH
 	db 0
 
-Mon152_EvosMoves: ; 3b370 (e:7370)
-;MISSINGNO
+Mon152_EvosMoves: ; 3b370 (e:7370), black version
+;POK_GHOST
 ;Evolutions
 	db 0
 ;Learnset
 	db 0
+
+;Mon152_EvosMoves: ; 3b370 (e:7370)
+;MISSINGNO
+;Evolutions
+	;db 0
+;Learnset
+	;db 0
 
 Mon153_EvosMoves: ; 3b372 (e:7372)
 ;MISSINGNO

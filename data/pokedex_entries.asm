@@ -29,7 +29,7 @@ PokedexEntryPointers: ; 4047e (10:447e)
 	dw BlastoiseDexEntry
 	dw PinsirDexEntry
 	dw TangelaDexEntry
-	dw MissingNoDexEntry
+	dw GhostDexEntry
 	dw MissingNoDexEntry
 	dw GrowlitheDexEntry
 	dw OnixDexEntry
@@ -403,6 +403,13 @@ TangelaDexEntry: ; 407e8 (10:47e8)
 	db 3,3
 	dw 770
 	TX_FAR _TangelaDexEntry
+	db "@"
+
+GhostDexEntry: ; 40fe5 (10:4fe5)
+	db "FRIEND@"
+	db 5,0
+	dw 2
+	TX_FAR _GhostDexEntry
 	db "@"
 
 GrowlitheDexEntry: ; 407f6 (10:47f6)
@@ -1252,7 +1259,7 @@ VictreebelDexEntry: ; 40fd1 (10:4fd1)
 	TX_FAR _VictreebelDexEntry
 	db "@"
 
-MissingNoDexEntry: ; 40fe5 (10:4fe5)
+MissingNoDexEntry: ; not bothering to update memory addresses.  everything below this is wrong.
 	db "???@"
 	db 10 ; 1.0 m
 	db 100 ; 10.0 kg
